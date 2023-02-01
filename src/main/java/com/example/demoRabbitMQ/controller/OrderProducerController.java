@@ -22,13 +22,20 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/order")
 public class OrderProducerController{
+
     @Autowired
     private RabbitTemplate template;
 
     @PostMapping("/{restaurantName}")
-    private String bookOrder(@RequestBody Order order, @PathVariable String restaurantName){
+    private String placeOrder(@RequestBody Order order, @PathVariable String restaurantName){
         order.setOrderId(UUID.randomUUID().toString());
-        OrderStatus orderStatus = new OrderStatus(order,"ACCEPTED","order placed successfully : "+restaurantName);
+//        OrderStatus orderStatus = new OrderStatus(
+//                order,"ACCEPTED","order placed successfully : "+restaurantName
+//        );
+
+        OrderStatus orderStatus = new OrderStatus(
+                order,"REJECTED","order cannot be placed : "+restaurantName
+        );
 
         // When we send a message to the topic exchange, we need to pass a routing key.
         // Based on this routing key the message will be delivered to specific queues.
@@ -38,3 +45,5 @@ public class OrderProducerController{
         return "Successfully executed";
     }
 }
+
+

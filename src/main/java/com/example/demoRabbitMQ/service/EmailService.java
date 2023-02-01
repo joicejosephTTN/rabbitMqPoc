@@ -35,7 +35,7 @@ public class EmailService {
 
         String subject = "Order Placed ";
         String body = "Order Placed : " + orderStatus + "\n";
-        sendEmail("badibop791@ceoshub.com", body, subject);
+        sendEmail("yorejiv920@fanneat.com", body, subject);
 
         logger.info("EmailService::sendOrderPlacedMail execution ended.");
 
